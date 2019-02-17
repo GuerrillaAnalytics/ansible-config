@@ -18,4 +18,6 @@
     - "ansible-basic-server"
     - ansible-chrome
     - ansible-pycharm
-#      - pycharm_edition community
+    - ansible-git
+
+
