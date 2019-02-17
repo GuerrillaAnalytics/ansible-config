@@ -1,0 +1,21 @@
+---
+# run locally here, yadda yadda yadda
+
+- hosts: local
+  vars:
+    gather_facts: true
+    pycharm_edition: community
+    pycharm_version: 2018.3.4
+    # pycharm_install_prefix: ansible_env.HOME
+
+  tasks:
+    - name: Print ansible_os_family
+      debug: var=ansible_os_family
+
+  connection: local
+  become: yes
+  roles:
+    - "ansible-basic-server"
+    - ansible-chrome
+    - ansible-pycharm
+#      - pycharm_edition community

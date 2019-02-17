@@ -1,0 +1,7 @@
+# test file for chrome
+---
+- hosts: localhost
+  connection: local
+  become: true
+  roles:
+    - ../../

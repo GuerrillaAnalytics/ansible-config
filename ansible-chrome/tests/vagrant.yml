@@ -1,0 +1,7 @@
+# test file for chrome
+---
+- hosts: all
+  remote_user: vagrant
+  become: true
+  roles:
+    - ../../
