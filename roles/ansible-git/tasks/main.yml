@@ -3,7 +3,7 @@
 - git_config:
      name: user.name
      scope: global
-     value: "Enda"
+     value: Enda Ridge
 
 - git_config:
      name: user.email

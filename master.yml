@@ -8,12 +8,12 @@
     pycharm_version: 2018.3.4
     # pycharm_install_prefix: ansible_env.HOME
 
+  connection: local
+  become: yes
   tasks:
     - name: Print ansible_os_family
       debug: var=ansible_os_family
 
-  connection: local
-  become: yes
   roles:
     - "ansible-basic-server"
     - ansible-chrome
