@@ -17,7 +17,24 @@
   roles:
     - "ansible-basic-server"
     - ansible-chrome
-    - ansible-pycharm
     - ansible-git
+    - ansible-role-atom
+    - role: role-atom-packages
+      users:
+        - username: "{{ ansible_user_id }}"
+          atom_packages:
+            - minimap
+            - linter
+            - atom-beautify
+            - file-icons
+            - teletype
+            - highlight-selected
+            - tablr     # view CSV files as a table
+            - language-markdown     # markdown packages
+            - markdown-writer
+            - markdown-preview
+    - role: ansible-role-pycharm
+      pycharm_version: 2018.3.5
+      pycharm_edition: community
 
 
