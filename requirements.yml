@@ -14,3 +14,6 @@
   src: https://github.com/henriklynggaard/ansible-role-pycharm
   version: v1.1
 
+- name: ansible-role-postgresql
+  src: https://github.com/geerlingguy/ansible-role-postgresql
+  version: 1.4.5

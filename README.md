@@ -1,7 +1,14 @@
 # ansible-config
 ansible configuration of work and home machine
 
+To run type:
+
 ansible-playbook -i ./hosts  master.yml --extra-vars "ansible_become_pass=<password>"
+
+
+# Set up your system
+Install all ansible galaxy roles from requirements.yml
+ansible-galaxy install -r requirements.yml
 
 # Setup on mac
 brew install python2
@@ -16,5 +23,3 @@ source .venv/bin/activate
 # inside that virtual environment
 pip install ansible
 pip install -r requirements.txt
-
-

@@ -36,5 +36,6 @@
     - role: ansible-role-pycharm
       pycharm_version: 2018.3.5
       pycharm_edition: community
-
-
+      # pycharm_plugins:
+          # bash support 1.7.4
+          # - 53225
