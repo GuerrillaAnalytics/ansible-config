@@ -1,0 +1,27 @@
+---
+#- name: Perform Safe Upgrade
+#  apt: upgrade=safe update_cache=yes
+
+- name: Install Server Basics
+  apt: pkg={{ item }} state=installed update_cache=true
+  with_items:
+    - acl
+    - unattended-upgrades
+    - policykit-1
+    - ntp
+    - wget
+    - curl
+    - vim
+    - ack-grep
+    - git
+    - unzip
+    - htop
+    - tmux
+    - tree
+    - mc
+    - bash-completion
+    - htop
+    - rename
+  notify:
+    - Start NTP
+

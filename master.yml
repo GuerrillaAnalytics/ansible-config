@@ -15,10 +15,11 @@
       debug: var=ansible_os_family
 
   roles:
-    - "ansible-basic-server"
+    - ansible-data-science-cli
     - ansible-chrome
     - ansible-git
     - ansible-role-atom
+    - ansible-role-docker
     - role: role-atom-packages
       users:
         - username: "{{ ansible_user_id }}"
