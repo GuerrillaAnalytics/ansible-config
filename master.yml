@@ -14,11 +14,20 @@
     - name: Print ansible_os_family
       debug: var=ansible_os_family
 
+    - name: Install Atom if on Linux
+      include_role:
+        name: ansible-role-atom
+      when: ansible_os_family == 'Debian'
+
+- name: Include a play after another play
+  include: "os_{{ ansible_facts['distribution'] }}.yml"
+
   roles:
     - "ansible-basic-server"
     - ansible-chrome
     - ansible-git
-    - ansible-role-atom
+    - { role: ansible-role-atom-macos, when: "ansible_os_family == 'Darwin'", become: no }
+    
     - role: role-atom-packages
       users:
         - username: "{{ ansible_user_id }}"
