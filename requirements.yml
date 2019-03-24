@@ -4,6 +4,9 @@
   src: https://github.com/gantsign/ansible-role-atom
   version: 2.0.1
 
+- name: ansible-role-atom-macos
+  src: https://github.com/christopherdwhite/ansible-role-atom.git
+
 - name: role-atom-packages
   src: https://github.com/gantsign/ansible-role-atom-packages
   version: 1.2.0
