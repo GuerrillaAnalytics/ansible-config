@@ -11,6 +11,10 @@
   src: https://github.com/gantsign/ansible-role-atom-packages
   version: 1.2.0
 
+- name: ansible-role-chrome-linux
+  src: https://github.com/cmprescott/ansible-role-chrome
+  version: 0.2.4
+
 # Install and configure pycharm
 # https://github.com/henriklynggaard/ansible-role-pycharm
 - name: ansible-role-pycharm

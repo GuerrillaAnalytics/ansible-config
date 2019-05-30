@@ -29,6 +29,5 @@ source .venv/bin/activate
 
 # Then anything we intall with pip will be
 # inside that virtual environment
-pip install ansible
 
 pip install -r requirements.txt
