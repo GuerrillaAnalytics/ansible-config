@@ -41,3 +41,6 @@
       include_role:
           name: ansible-role-chrome-linux
       when: ansible_os_family == 'Debian'
+
+  roles:
+    - ansible-data-science-cli
