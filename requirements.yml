@@ -21,9 +21,9 @@
   src: https://github.com/henriklynggaard/ansible-role-pycharm
   version: v1.1
 
-- name: ANXS.postgresql
-  src: https://github.com/ANXS/postgresql/
-  version: 1.11.1
+- name: geerlingguy.postgresql
+  src: https://github.com/geerlingguy/ansible-role-postgresql
+  version: 1.4.5
 
 - name: ansible-role-docker
   src: https://github.com/geerlingguy/ansible-role-docker

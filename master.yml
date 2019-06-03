@@ -43,18 +43,25 @@
           name: ansible-role-chrome-linux
       when: ansible_os_family == 'Debian'
 
-    - name: Install ANXS.postgresql on Linux
+    - name: Install postgres on Linux
       include_role:
-          name: ANXS.postgresql
-      vars:
-          postgresql_version: 11
-          postgresql_encoding: "UTF-8"
-          postgresql_admin_user: "postgres"
-          postgresql_default_auth_method: "peer"
-          postgresql_service_enabled: true # should the service be enabled, default is true
-          postgresql_cluster_name: "main"
+          name: geerlingguy.postgresql
       when: ansible_os_family == 'Debian'
-      tags: postgresql
+      tags:
+          - postgresql
+
+    - name: Setup default git configuraiton
+      git_config:
+        name="{{ item.name }}"
+        scope=global
+        value="{{ item.value }}"
+      with_items:
+        - {name: "user.name",  value: "UserName" }
+        - {name: "user.email", value: "user.name@gmail.com" }
+        - {name: "ui.color",   value: "True" }
+        - {name: "credential.helper",   value: "store" }
+      tags:
+          - git
 
   roles:
     - role: ansible-data-science-cli
