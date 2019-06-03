@@ -2,7 +2,7 @@
 # run locally here, yadda yadda yadda
 
 - hosts: local
-
+  any_errors_fatal: true
   # ensure Python2 is installed for ansible to work correctly
   # switch off gather_facts temporarily as that also fails without
   # Python2 present
@@ -51,6 +51,7 @@
           - postgresql
 
     - name: Setup default git configuraiton
+      become: true
       git_config:
         name="{{ item.name }}"
         scope=global
