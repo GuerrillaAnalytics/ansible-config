@@ -22,5 +22,6 @@
     - bash-completion
     - htop
     - rename
+    - net-tools
 #  notify:
 #    - Start NTP

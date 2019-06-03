@@ -56,4 +56,5 @@
       tags: postgresql
 
   roles:
-    - ansible-data-science-cli
+    - role: ansible-data-science-cli
+      tags: data-science-cli
