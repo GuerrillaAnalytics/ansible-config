@@ -11,6 +11,7 @@
     - name: 'install python2'
       raw: sudo apt-get -y install python
       when: ansible_os_family == 'Debian'
+
   gather_facts: yes
 
   vars:
@@ -24,6 +25,7 @@
   tasks:
     - name: Print ansible_os_family
       debug: var=ansible_os_family
+
 
     - name: Install Atom if on Linux
       include_role:
@@ -43,12 +45,6 @@
           name: ansible-role-chrome-linux
       when: ansible_os_family == 'Debian'
 
-    - name: Install postgres on Linux
-      include_role:
-          name: geerlingguy.postgresql
-      when: ansible_os_family == 'Debian'
-      tags:
-          - postgresql
 
     - name: Setup default git configuraiton
       become: true
@@ -64,9 +60,13 @@
       tags:
           - git
 
+
   roles:
     - role: ansible-data-science-cli
       tags: data-science-cli
+
+    - role: ansible-postgresql
+      tags: postgresql
 
     - role: ansible-pyenv
       become: no

@@ -1,0 +1,6 @@
+- name: Install postgres on Linux
+  include_role:
+      name: geerlingguy.postgresql
+  when: ansible_os_family == 'Debian'
+  tags:
+      - postgresql

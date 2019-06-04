@@ -1,0 +1,16 @@
+- name: Install postgresql for MacOS
+  homebrew:
+    name: postgresql
+    state: present
+  tags: postgresql
+  # then need to run /usr/local/opt/postgres/bin/createuser -s postgres
+  # start servivec with pg_ctl -D /usr/local/var/postgres start
+
+- name: Install pgadmin4 for MacOS
+  homebrew_cask:
+    name: pgadmin4
+    state: present
+  tags: postgresql
+
+#- name: Create role
+#  command: /usr/local/opt/postgres/bin/createuser -s postgres
