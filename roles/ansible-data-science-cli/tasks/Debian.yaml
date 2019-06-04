@@ -2,8 +2,11 @@
 #- name: Perform Safe Upgrade
 #  apt: upgrade=safe update_cache=yes
 
-- name: Install Server Basics
-  apt: pkg={{ item }} state=installed update_cache=true
+- name: Install command line utilites on Debian
+  apt:
+    name: ["{{ item }}"]
+    state: installed
+    update_cache: true
   with_items:
     - acl
     - unattended-upgrades
