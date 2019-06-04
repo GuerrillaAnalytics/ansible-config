@@ -19,7 +19,7 @@
     # pycharm_install_prefix: ansible_env.HOME
 
   connection: local
-  become: yes
+  #become: yes
 
   tasks:
     - name: Print ansible_os_family
@@ -67,3 +67,28 @@
   roles:
     - role: ansible-data-science-cli
       tags: data-science-cli
+
+    - role: ansible-pyenv
+      become: no
+      # If you get macos errors about missing developer packages then:
+      # If you have an Apple developer account, this can be resolved by
+      # downloading Command Line Tools (macOS 10.14) for Xcode 10 from
+      # Apple's download page and then installing that package
+      vars:
+        #pyenv_global: "3.7.3"
+
+        # Versions to install
+        pyenv_version: "v1.2.9"
+        #pyenv_virtualenv_version: "v1.1.5"
+
+        # Initialize shell profile scripts
+        pyenv_init_shell: yes
+
+        # Python versions to install
+        pyenv_python_versions:
+          - "2.7.16"
+          - "3.7.3"
+
+        # Optionally, install virtualenvwrapper plugin for pyenv
+        pyenv_virtualenvwrapper: no
+      tags: pyenv
