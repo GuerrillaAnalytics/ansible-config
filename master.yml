@@ -78,7 +78,7 @@
         path="{{ ansible_env.HOME }}/.aws"
         state=directory
       tags: awscli
-      
+
     # - name: Install ~/.aws/credentials
     #   copy:
     #     src: credentials

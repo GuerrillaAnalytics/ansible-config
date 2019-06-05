@@ -36,3 +36,8 @@
 - name: ansible-role-docker
   src: https://github.com/geerlingguy/ansible-role-docker
   version: 2.5.2
+
+  ########################
+  # Languages
+- name: diodonfrost.java
+  src: https://github.com/diodonfrost/ansible-role-java
