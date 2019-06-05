@@ -12,6 +12,11 @@
       raw: sudo apt-get -y install python
       when: ansible_os_family == 'Debian'
 
+    - name: Ensure brew is installed on Mac
+      include_role:
+        name: ansible-role-homebrew
+      when: ansible_os_family == 'Darwin'
+
   gather_facts: yes
 
   vars:
@@ -60,6 +65,25 @@
       tags:
           - git
 
+
+    - name: Install awscli
+      pip:
+        name: awscli
+        #version: "{{ awscli_version }}"
+        extra_args: --user
+      tags: awscli
+
+    - name: Ensure ~/.aws directory exists
+      file: >
+        path="{{ ansible_env.HOME }}/.aws"
+        state=directory
+      tags: awscli
+      
+    # - name: Install ~/.aws/credentials
+    #   copy:
+    #     src: credentials
+    #     dest: "{{ home_directory }}/.aws/credentials"
+    #     mode: 0644
 
   roles:
     - role: ansible-data-science-cli
