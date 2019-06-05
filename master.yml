@@ -65,6 +65,12 @@
       tags:
           - git
 
+    - name: Install OpenJDK on MacOS
+      become: yes
+      homebrew_cask:
+        name: adoptopenjdk8
+        state: present
+      tags: java
 
     - name: Install awscli
       pip:
