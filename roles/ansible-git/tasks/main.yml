@@ -1,9 +1,10 @@
 ---
 # tasks file for ansible-git
 - git_config:
-     name: user.name
-     scope: global
-     value: Enda Ridge
+    name: user.name
+    scope: global
+    value: "{{ ansible_env.USER }}"
+  tags: git
 
 - git_config:
      name: user.email
@@ -15,3 +16,18 @@
     name: core.editor
     scope: global
     value: nano
+
+- git_config:
+    name: merge.tool
+    scope: global
+    value: meld
+
+- git_config:
+    name: diff.guitool
+    scope: global
+    value: meld
+
+- git_config:
+    name: color.ui
+    scope: global
+    value: true
