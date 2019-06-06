@@ -3,6 +3,7 @@
 #  apt: upgrade=safe update_cache=yes
 
 - name: Install command line utilites on Debian
+  become: yes
   apt:
     name: ["{{ item }}"]
     state: installed

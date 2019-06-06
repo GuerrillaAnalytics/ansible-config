@@ -4,3 +4,10 @@
   when: ansible_os_family == 'Debian'
   tags:
       - postgresql
+
+- name: Install pgadmin4
+  apt:
+    name: pgadmin4
+    state: present
+  tags:
+      - postgresql
