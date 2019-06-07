@@ -11,3 +11,28 @@
     state: present
   tags:
       - postgresql
+
+
+- name: Changing perm of /etc/postgresql/11/main/pg_hba.conf, adding "+rw"
+  become: yes
+  file:
+    path: /etc/postgresql/11/main/pg_hba.conf
+    mode: "u+rw"
+  tags:
+      - postgresql
+
+- name: Changing perm of /etc/postgresql/11/main/postgresql.conf, adding "+rw"
+  become: yes
+  file:
+    path: /etc/postgresql/11/main/postgresql.conf
+    mode: "u+rw"
+  tags:
+      - postgresql
+
+- name: adding existing user "{{ ansible_env.USER }}" to group postgres
+  user:
+    name: "{{ ansible_env.USER }}"
+    groups: postgres
+    append: yes
+  tags:
+      - postgresql
