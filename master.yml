@@ -10,8 +10,13 @@
   pre_tasks:
     - name: 'install python2'
       become: yes
-      raw: apt-get -y install python
+      raw: apt-get -y install python #python-pip
       when: ansible_os_family == 'Debian'
+
+    # - name: Install setup tools
+    #   raw: pip2 install setuptools
+    #   when: ansible_os_family == 'Debian'
+
 
     - name: Ensure brew is installed on Mac
       include_role:
@@ -60,6 +65,7 @@
         state: present
       tags: java
 
+
     - name: Install awscli
       pip:
         name: awscli
@@ -97,30 +103,23 @@
         postgresql_databases:
           - name: example_db
         postgresql_hba_entries:
-          - { type: local, database: all, user: postgres, auth_method: trust }
+          - { type: all, database: all, user: all, auth_method: trust }
       tags: postgresql
 
-    - role: ansible-pyenv
-      become: no
-      # If you get macos errors about missing developer packages then:
-      # If you have an Apple developer account, this can be resolved by
-      # downloading Command Line Tools (macOS 10.14) for Xcode 10 from
-      # Apple's download page and then installing that package
+    - role: avanov.pyenv
       vars:
-        #pyenv_global: "3.7.3"
-
-        # Versions to install
-        pyenv_version: "v1.2.9"
-        #pyenv_virtualenv_version: "v1.1.5"
-
-        # Initialize shell profile scripts
-        pyenv_init_shell: yes
-
-        # Python versions to install
+        pyenv_path: "{{ ansible_env.HOME }}/.pyenv"
+        #pyenv_owner: "{{ instance_owner }}"
+        pyenv_global: "3.7.2"
+        pyenv_update_git_install: no
+        pyenv_enable_autocompletion: yes
         pyenv_python_versions:
-          - "2.7.16"
-          - "3.7.3"
+         - "3.7.2"
+         - "2.7.16"
+        pyenv_virtualenvs:
+         - venv_name: "latest_v3"
+           py_version: "3.7.2"
 
-        # Optionally, install virtualenvwrapper plugin for pyenv
-        pyenv_virtualenvwrapper: no
+         - venv_name: "latest_v2"
+           py_version: "2.7.16"
       tags: pyenv

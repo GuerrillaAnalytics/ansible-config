@@ -1,9 +1,11 @@
 # Install a role at a specific tag from GitHub
 # https://stackoverflow.com/questions/25230376/how-to-automatically-install-ansible-galaxy-roles
 
-- name: ansible-pyenv
-  src: https://github.com/markosamuli/ansible-pyenv
-  version: v1.5.0
+- name: avanov.pyenv
+  src: https://github.com/avanov/ansible-galaxy-pyenv
+
+- name: dirn.pyenv
+  src: https://github.com/dirn/ansible-pyenv
 
 - name: ansible-role-homebrew
   src: https://github.com/geerlingguy/ansible-role-homebrew
