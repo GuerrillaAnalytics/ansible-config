@@ -23,3 +23,8 @@
     homebrew_cask:
       name: meld
       state: present
+
+  - name: Install jq JSON command line processor on MacOS
+    homebrew:
+      name: jq
+      state: present

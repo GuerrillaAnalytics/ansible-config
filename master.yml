@@ -52,17 +52,13 @@
           pycharm_edition: community
       when: ansible_os_family == 'Debian'
 
-    - name: Install Chrome on linux
-      include_role:
-          name: ansible-role-chrome-linux
-      when: ansible_os_family == 'Debian'
-
 
     - name: Install OpenJDK on MacOS
       become: yes
       homebrew_cask:
         name: adoptopenjdk8
         state: present
+      when: ansible_os_family == 'Darwin'
       tags: java
 
 

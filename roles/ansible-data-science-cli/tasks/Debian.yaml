@@ -2,12 +2,20 @@
 #- name: Perform Safe Upgrade
 #  apt: upgrade=safe update_cache=yes
 
+- name: ensure  npm is installed for use by Ansible
+  become: yes
+  apt:
+    name: ["{{ item }}"]
+    state: present
+  with_items:
+    #- nodejs
+    - npm
+
 - name: Install command line utilites on Debian
   become: yes
   apt:
     name: ["{{ item }}"]
-    state: installed
-    update_cache: true
+    state: present
   with_items:
     - acl
     - unattended-upgrades
@@ -27,5 +35,25 @@
     - htop
     - rename
     - net-tools
-#  notify:
-#    - Start NTP
+    #- cut
+    #- sort
+    #- wc
+    #- uniq
+
+- name: Install jq command line utility on Debian
+  become: yes
+  apt:
+    name: jq
+    state: present
+
+# - name: Install "json2csv" command line tool for converting json into csv
+#   npm:
+#     name: json2csv
+#     global: yes
+
+- name: Update apt cache
+  become: yes
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400 #update cache if been more than one day in secs
