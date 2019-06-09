@@ -1,6 +1,7 @@
 ---
-#- name: Perform Safe Upgrade
-#  apt: upgrade=safe update_cache=yes
+# Command line tools
+# Based partly on
+# https://www.datascienceworkshops.com/blog/seven-command-line-tools-for-data-science/
 
 - name: ensure  npm is installed for use by Ansible
   become: yes
@@ -46,10 +47,10 @@
     name: jq
     state: present
 
-# - name: Install "json2csv" command line tool for converting json into csv
-#   npm:
-#     name: json2csv
-#     global: yes
+ - name: Install "json2csv" command line tool for converting json into csv
+   npm:
+     name: json2csv
+     global: yes
 
 - name: Update apt cache
   become: yes
