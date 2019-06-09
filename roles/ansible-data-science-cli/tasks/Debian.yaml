@@ -3,16 +3,17 @@
 # Based partly on
 # https://www.datascienceworkshops.com/blog/seven-command-line-tools-for-data-science/
 
-- name: ensure  npm is installed for use by Ansible
+# https://stackoverflow.com/a/47227017
+- name: ensure node is installed for use by Ansible
   become: yes
   apt:
     name: ["{{ item }}"]
     state: present
   with_items:
-    #- nodejs
+    - nodejs
     - npm
 
-- name: Install command line utilites on Debian
+- name: Install Linux command line utilites on Debian
   become: yes
   apt:
     name: ["{{ item }}"]
@@ -41,16 +42,16 @@
     #- wc
     #- uniq
 
-- name: Install jq command line utility on Debian
-  become: yes
-  apt:
-    name: jq
-    state: present
-
- - name: Install "json2csv" command line tool for converting json into csv
-   npm:
-     name: json2csv
-     global: yes
+# - name: Install jq command line utility on Debian
+#   become: yes
+#   apt:
+#     name: jq
+#     state: present
+#
+# - name: Install "json2csv" command line tool for converting json into csv
+#   npm:
+#     name: json2csv
+#     global: yes
 
 - name: Update apt cache
   become: yes
