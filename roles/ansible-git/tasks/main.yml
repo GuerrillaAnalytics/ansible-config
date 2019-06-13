@@ -31,3 +31,14 @@
     name: color.ui
     scope: global
     value: true
+
+- homebrew:
+    name: git-flow
+    state: absent
+  when: ansible_os_family == 'Darwin'
+
+- homebrew: uninstall nvie git-flow
+  apt:
+    pkg: git-flow
+    state: absent
+  when: ansible_os_family == 'Debian'
