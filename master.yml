@@ -13,10 +13,6 @@
       raw: apt-get -y install python #python-pip
       when: ansible_os_family == 'Debian'
 
-    # - name: Install setup tools
-    #   raw: pip2 install setuptools
-    #   when: ansible_os_family == 'Debian'
-
 
     - name: Ensure brew is installed on Mac
       include_role:
@@ -35,6 +31,14 @@
   #become: yes
 
   tasks:
+    - name: Upgrade apt cache on Linux
+      become: yes
+      apt:
+        upgrade: yes
+        cache_valid_time: 604800 #update cache if been more than one day in secs
+      when: ansible_os_family == 'Debian'
+      tags: upgrade
+
     - name: Print ansible_os_family
       debug: var=ansible_os_family
 
@@ -90,17 +94,17 @@
     - role: ansible-git
       tags: git
 
-    - role: ansible-postgresql
-      become: yes
-      vars:
-        postgresql_users:
-          - name: enda
-          - name: postgres
-        postgresql_databases:
-          - name: example_db
-        postgresql_hba_entries:
-          - { type: all, database: all, user: all, auth_method: trust }
-      tags: postgresql
+    # - role: ansible-postgresql
+    #   become: yes
+    #   vars:
+    #     postgresql_users:
+    #       - name: enda
+    #       - name: postgres
+    #     postgresql_databases:
+    #       - name: example_db
+    #     postgresql_hba_entries:
+    #       - { type: all, database: all, user: all, auth_method: trust }
+    #   tags: postgresql
 
     - role: avanov.pyenv
       vars:

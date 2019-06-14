@@ -56,6 +56,5 @@
 - name: Update apt cache
   become: yes
   apt:
-    upgrade: yes
     update_cache: yes
     cache_valid_time: 86400 #update cache if been more than one day in secs
