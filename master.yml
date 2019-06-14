@@ -110,7 +110,7 @@
       vars:
         pyenv_path: "{{ ansible_env.HOME }}/.pyenv"
         #pyenv_owner: "{{ instance_owner }}"
-        pyenv_global: "3.7.2"
+        pyenv_global: "2.7.16"
         pyenv_update_git_install: no
         pyenv_enable_autocompletion: yes
         pyenv_python_versions:
