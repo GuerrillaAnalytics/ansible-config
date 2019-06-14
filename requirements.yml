@@ -43,3 +43,6 @@
   # Languages
 - name: diodonfrost.java
   src: https://github.com/diodonfrost/ansible-role-java
+
+- name: tommarshall.awscli
+  src: https://github.com/tommarshall/ansible-role-awscli

@@ -66,12 +66,12 @@
       tags: java
 
 
-    - name: Install awscli
-      pip:
-        name: awscli
-        #version: "{{ awscli_version }}"
-        extra_args: --user
-      tags: awscli
+    # - name: Install awscli
+    #   pip:
+    #     name: awscli
+    #     #version: "{{ awscli_version }}"
+    #     extra_args: --user
+    #   tags: awscli
 
     - name: Ensure ~/.aws directory exists
       file: >
@@ -93,6 +93,9 @@
 
     - role: ansible-git
       tags: git
+
+    - role: tommarshall.awscli
+      tags: awscli
 
     # - role: ansible-postgresql
     #   become: yes
