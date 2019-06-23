@@ -31,13 +31,13 @@
   #become: yes
 
   tasks:
-    - name: Upgrade apt cache on Linux
-      become: yes
-      apt:
-        upgrade: yes
-        cache_valid_time: 604800 #update cache if been more than one day in secs
-      when: ansible_os_family == 'Debian'
-      tags: upgrade
+    # - name: Upgrade apt cache on Linux
+    #   become: yes
+    #   apt:
+    #     upgrade: yes
+    #     cache_valid_time: 604800 #update cache if been more than one day in secs
+    #   when: ansible_os_family == 'Debian'
+    #   tags: upgrade
 
     - name: Print ansible_os_family
       debug: var=ansible_os_family
@@ -85,7 +85,20 @@
     #     dest: "{{ home_directory }}/.aws/credentials"
     #     mode: 0644
 
+    - name: Creates directory for shared partition
+      file:
+        path: "{{ ansible_env.HOME }}/data"
+        state: directory
+      tags: shared_partition
 
+    - name: Mount shared partition
+      become: yes
+      mount:
+        path: "{{ ansible_env.HOME }}/data"
+        src: /dev/sda6
+        fstype: ntfs
+        state: mounted
+      tags: shared_partition
 
   roles:
     - role: ansible-data-science-cli
