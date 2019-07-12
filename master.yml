@@ -19,6 +19,14 @@
         name: ansible-role-homebrew
       when: ansible_os_family == 'Darwin'
 
+    - name: ensure aptitude is installed on Linux
+      become: yes
+      apt:
+        name: aptitude
+        state: latest
+      when: ansible_os_family == 'Debian'
+      tags: aptitude
+
     - name: Check PyEnv directory exists.
       stat:
         path: "{{ ansible_env.HOME }}/.pyenv"
@@ -41,13 +49,22 @@
   #become: yes
 
   tasks:
-    # - name: Upgrade apt cache on Linux
-    #   become: yes
-    #   apt:
-    #     upgrade: yes
-    #     cache_valid_time: 604800 #update cache if been more than one day in secs
-    #   when: ansible_os_family == 'Debian'
-    #   tags: upgrade
+    - name: Upgrade apt cache on Linux
+      become: yes
+      apt:
+        upgrade: yes
+        cache_valid_time: 604800 #update cache if been more than one day in secs
+      when: ansible_os_family == 'Debian'
+      tags: upgrade
+
+    - name: Install DigiKam photo management
+      become: yes
+      apt:
+        name: digikam
+        state: latest
+        update_cache: true
+      when: ansible_os_family == 'Debian'
+      tags: digikam
 
     - name: Print ansible_os_family
       debug: var=ansible_os_family
