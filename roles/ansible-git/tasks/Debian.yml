@@ -1,0 +1,45 @@
+---
+# tasks file for ansible-git
+- git_config:
+    name: user.name
+    scope: global
+    value: "{{ ansible_env.USER }}"
+  tags: git
+
+- git_config:
+     name: user.email
+     scope: global
+     value: "nope@nope.co.uk"
+
+
+- git_config:
+    name: core.editor
+    scope: global
+    value: nano
+
+- git_config:
+    name: merge.tool
+    scope: global
+    value: meld
+
+- git_config:
+    name: diff.guitool
+    scope: global
+    value: meld
+
+- git_config:
+    name: color.ui
+    scope: global
+    value: true
+
+- name: install git-flow
+  apt: pkg=git-flow state=present
+  become: yes
+
+- name: install git-extras
+  apt: pkg=git-extras state=present
+  become: yes
+
+- name: install git-gui
+  apt: pkg=git-gui state=present
+  become: yes
