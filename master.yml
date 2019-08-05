@@ -1,4 +1,4 @@
----
+
 # run locally here, yadda yadda yadda
 
 - hosts: local
@@ -92,6 +92,13 @@
       when: ansible_os_family == 'Darwin'
       tags: java
 
+    - name: install rclone on Linux
+      become: yes
+      apt:
+        name: rclone
+        state: latest
+      when: ansible_os_family == 'Debian'
+      tags: rclone
 
     # - name: Install awscli
     #   pip:
