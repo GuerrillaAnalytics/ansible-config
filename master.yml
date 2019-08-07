@@ -66,6 +66,15 @@
       when: ansible_os_family == 'Debian'
       tags: digikam
 
+    - name: Install apt-file tool if on Linux
+      become: yes
+      apt:
+        name: apt-file
+        state: latest
+        update_cache: true
+      when: ansible_os_family == 'Debian'
+      tags: aptfile
+
     - name: Print ansible_os_family
       debug: var=ansible_os_family
 
