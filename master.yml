@@ -90,8 +90,8 @@
       vars:
           pycharm_version: 2018.3.5
           pycharm_edition: community
-      when: ansible_os_family == 'Debian'
-
+      #when: ansible_os_family == 'Debian'
+      tags: pycharm
 
     - name: Install OpenJDK on MacOS
       become: yes
