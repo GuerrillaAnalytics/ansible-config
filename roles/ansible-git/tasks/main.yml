@@ -1,7 +1,40 @@
----
 # tasks file for ansible-data-science-cli
 # based on http://edunham.net/2015/09/10/ansible_conditional_role_dependencies.html
-- include: osx.yaml
+
+# tasks file for ansible-git
+- git_config:
+    name: user.name
+    scope: global
+    value: "{{ ansible_env.USER }}"
+  tags: git
+
+- git_config:
+     name: user.email
+     scope: global
+     value: "nope@nope.co.uk"
+
+
+- git_config:
+    name: core.editor
+    scope: global
+    value: nano
+
+- git_config:
+    name: merge.tool
+    scope: global
+    value: meld
+
+- git_config:
+    name: diff.guitool
+    scope: global
+    value: meld
+
+- git_config:
+    name: color.ui
+    scope: global
+    value: true
+
+- include: Darwin.yml
   when: ansible_os_family == 'Darwin'
 
 - include: Debian.yml
