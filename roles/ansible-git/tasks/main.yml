@@ -34,6 +34,12 @@
     scope: global
     value: true
 
+# ensure tags are automatically pushed to remotes
+- git_config:
+    name: push.followTags
+    scope: global
+    value: true
+
 - include: Darwin.yml
   when: ansible_os_family == 'Darwin'
 
