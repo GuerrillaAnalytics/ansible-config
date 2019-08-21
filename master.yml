@@ -122,6 +122,20 @@
         state=directory
       tags: awscli
 
+    - name: Install AWS sam cli tap
+      become: yes
+      homebrew_cask:
+        name: aws/tap
+        state: present
+      when: ansible_os_family == 'Darwin'
+      tags: awscli
+
+    - name: Install AWS sam cli
+      homebrew:
+        name: aws-sam-cli
+        state: present
+      tags: awscli
+
     # - name: Install ~/.aws/credentials
     #   copy:
     #     src: credentials
