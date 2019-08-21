@@ -1,9 +1,11 @@
-- homebrew:
+- name: Install git-flow AVH for Mac
+  homebrew:
     name: git-flow-avh
     state: present
   tags: git
 
-- homebrew:
+- name: Install git extras for Mac
+  homebrew:
     name: git-extras
     state: present
   tags: git

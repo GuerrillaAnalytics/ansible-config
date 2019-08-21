@@ -1,14 +1,14 @@
 ---
 # tasks file for ansible-git
 
-- name: install git-flow
+- name: install git-flow for Linux
   apt: pkg=git-flow state=present
   become: yes
 
-- name: install git-extras
+- name: install git-extras for Linux
   apt: pkg=git-extras state=present
   become: yes
 
-- name: install git-gui
+- name: install git-gui for Linux
   apt: pkg=git-gui state=present
   become: yes
