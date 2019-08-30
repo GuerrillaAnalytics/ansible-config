@@ -57,6 +57,13 @@
       when: ansible_os_family == 'Debian'
       tags: upgrade
 
+    - name: Upgrade homebrew packages on Mac
+      homebrew:
+        update_homebrew: yes
+        upgrade_all: yes
+      when: ansible_os_family == 'Darwin'
+      tags: upgrade
+
     - name: Install DigiKam photo management
       become: yes
       apt:
