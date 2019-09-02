@@ -88,8 +88,11 @@
       include_role:
         name: ansible-role-pycharm
       vars:
-          pycharm_version: 2018.3.5
-          pycharm_edition: community
+        pycharm_version: 2019.2.1
+        pycharm_edition: community
+        pycharm_plugins:
+            # bash support 1.6.5.171
+            - 65772
       #when: ansible_os_family == 'Debian'
       tags: pycharm
 

@@ -29,7 +29,7 @@
 # https://github.com/henriklynggaard/ansible-role-pycharm
 - name: ansible-role-pycharm
   src: https://github.com/henriklynggaard/ansible-role-pycharm
-  version: v1.1
+  #version: v1.1
 
 - name: geerlingguy.postgresql
   src: https://github.com/geerlingguy/ansible-role-postgresql
