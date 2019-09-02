@@ -96,6 +96,13 @@
       #when: ansible_os_family == 'Debian'
       tags: pycharm
 
+    - name: Add Pycharm bin dir to system-wide $PATH.
+      become: yes
+      copy:
+        dest: /etc/profile.d/custom-path.sh
+        content: 'PATH=$PATH:{{ ansible_env.HOME }}/bin/pycharm-community-2019.2.1/bin'
+      tags: pycharm-path
+
     - name: Install OpenJDK on MacOS
       become: yes
       homebrew_cask:
