@@ -49,6 +49,28 @@
   #become: yes
 
   tasks:
+    - name: set up bash terminal colours
+      lineinfile:
+        create: yes
+        # mode: 0600
+        dest: ~/.bash_profile
+        # owner: root
+        regexp: '^PS1='
+        line: PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
+        state: present
+      tags: bash
+    - name: set up ls colours in terminal
+      lineinfile:
+        create: yes
+        # mode: 0600
+        dest: ~/.bash_profile
+        # owner: root
+        regexp: '^LSCOLORS='
+        line: LSCOLORS=GxFxCxDxBxegedabagaced
+        state: present
+      tags: bash
+
+
     - name: Upgrade apt cache on Linux
       become: yes
       apt:
