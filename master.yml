@@ -148,6 +148,13 @@
       when: ansible_os_family == 'Debian'
       tags: rclone
 
+    - name: install File managers
+      become: yes
+      apt:
+        name: dolphin
+        state: latest
+      when: ansible_os_family == 'Debian'
+      tags: file_manager
     # - name: Install awscli
     #   pip:
     #     name: awscli
