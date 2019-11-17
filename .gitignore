@@ -2,3 +2,4 @@
 local.retry
 /.installed_roles
 .idea
+master.retry
