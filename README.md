@@ -1,6 +1,6 @@
 This project is where I maintain a reproducible setup of my home and work machines using [Ansible](https://www.ansible.com/).
 
-To run type the following where password is your admin password. 
+To run the configuration, set up your system as detailed below and then type the following. 'password' is your machine's admin password. 
 ```
 ansible-playbook -i ./hosts  master.yml --extra-vars "ansible_become_pass=<password>"
 ```
