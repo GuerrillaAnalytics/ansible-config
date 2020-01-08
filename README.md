@@ -1,10 +1,9 @@
-# ansible-config
-ansible configuration of work and home machine
+Reproducibility is key to doing science well. Data Science is no different. This project is where I maintain a reproducible setup of my home and work machines using [Ansible](https://www.ansible.com/).
 
-To run type:
-
+To run type the following where password is your admin password. 
+```
 ansible-playbook -i ./hosts  master.yml --extra-vars "ansible_become_pass=<password>"
-
+```
 
 # Set up your system
 Install virtualenv if not already installed
