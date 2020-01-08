@@ -39,10 +39,10 @@
       tags: pyenv
 
   gather_facts: yes
-
-  vars:
-    pycharm_edition: community
-    pycharm_version: 2018.3.4
+  #
+  # vars:
+  #   pycharm_edition: community
+  #   pycharm_version: 2018.3.4
     # pycharm_install_prefix: ansible_env.HOME
 
   connection: local
@@ -95,6 +95,7 @@
       when: ansible_os_family == 'Debian'
       tags: digikam
 
+    # Search for apt files online and on machine
     - name: Install apt-file tool if on Linux
       become: yes
       apt:
@@ -113,17 +114,26 @@
         name: ansible-role-atom
       when: ansible_os_family == 'Debian'
 
-    - name: Install PyCharm on Linux
-      include_role:
-        name: ansible-role-pycharm
-      vars:
-        pycharm_version: 2019.2.1
-        pycharm_edition: community
-        pycharm_plugins:
-            # bash support 1.6.5.171
-            - 65772
-      #when: ansible_os_family == 'Debian'
-      tags: pycharm
+    - name: Install Variety desktop wallpaper if on Linux
+      become: yes
+      apt:
+        name: variety
+        state: latest
+        update_cache: false
+      when: ansible_os_family == 'Debian'
+      tags: variety
+
+    # - name: Install PyCharm on Linux
+    #   include_role:
+    #     name: ansible-role-pycharm
+    #   vars:
+    #     pycharm_version: 2019.3.1
+    #     pycharm_edition: community
+    #     # pycharm_plugins:
+    #         # bash support 1.6.5.171
+    #         # - 65772
+    #   #when: ansible_os_family == 'Debian'
+    #   tags: pycharm
 
     - name: Add Pycharm bin dir to system-wide $PATH.
       become: yes
@@ -168,7 +178,7 @@
         state=directory
       tags: awscli
 
-    - name: Install AWS sam cli tap
+    - name: Install AWS sam cli tap on Mac
       become: yes
       homebrew_cask:
         name: aws/tap

@@ -27,8 +27,8 @@
 
 # Install and configure pycharm
 # https://github.com/henriklynggaard/ansible-role-pycharm
-- name: ansible-role-pycharm
-  src: https://github.com/henriklynggaard/ansible-role-pycharm
+# - name: ansible-role-pycharm
+#   src: https://github.com/henriklynggaard/ansible-role-pycharm
   #version: v1.1
 
 - name: geerlingguy.postgresql
