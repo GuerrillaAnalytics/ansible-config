@@ -20,5 +20,7 @@ virtualenv --python=python3 .venv
 ansible-galaxy install -r requirements.yml
 ```
 
-* Install project Python requirements
+* Install project Python requirements inside your virtualenv
+```
 pip install -r requirements.txt
+```
