@@ -1,33 +1,26 @@
-# ansible-config
-ansible configuration of work and home machine
+This project is where I maintain a reproducible setup of my home and work machines using [Ansible](https://www.ansible.com/).
 
-To run type:
-
+To run the configuration, set up your system as detailed below and then type the following. 'password' is your machine's admin password. 
+```
 ansible-playbook -i ./hosts  master.yml --extra-vars "ansible_become_pass=<password>"
-
+```
+# Motivation
+Reproducibility is key to doing traditional science. Results that cannot be reproduced are useless. Data Science is no different. 
 
 # Set up your system
-Install virtualenv if not already installed
-
-virtualenv --python=python2.7 .venv
-
-Install all ansible galaxy roles from requirements.yml
-
-ansible-galaxy install -r requirements.yml
-
-# Setup on mac
-brew install python2
-pip2 install -U virtualenv
-
-# Create a python virtual environment
+* Install virtualenv as described [here](https://virtualenv.pypa.io/en/latest/installation/) 
+* Create and activate a python virtual environment for this project's installations
+```
 virtualenv --python=python3 .venv
+```
 
+* Install ansible.
+* Install ansible roles using the requirements file.
+```
+ansible-galaxy install -r requirements.yml
+```
 
-# Enable the virtual environment
-source .venv/bin/activate
-
-
-# Then anything we intall with pip will be
-# inside that virtual environment
-
+* Install project Python requirements inside your virtualenv
+```
 pip install -r requirements.txt
+```
