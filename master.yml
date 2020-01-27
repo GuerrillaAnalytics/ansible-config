@@ -27,6 +27,14 @@
       when: ansible_os_family == 'Debian'
       tags: aptitude
 
+    - name: ensure snap is installed on Linux
+      become: yes
+      apt:
+        name: snapd
+        state: latest
+      when: ansible_os_family == 'Debian'
+      tags: snap
+
     - name: Check PyEnv directory exists.
       stat:
         path: "{{ ansible_env.HOME }}/.pyenv"
@@ -108,6 +116,13 @@
     - name: Print ansible_os_family
       debug: var=ansible_os_family
 
+    - name: Install Spotify on Linux
+      become: yes
+      snap:
+        name: spotify
+        state: present
+      when: ansible_os_family == 'Debian'
+      tags: spotify
 
     - name: Install Atom if on Linux
       include_role:
