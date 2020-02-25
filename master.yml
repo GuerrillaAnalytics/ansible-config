@@ -173,6 +173,14 @@
       when: ansible_os_family == 'Debian'
       tags: rclone
 
+    - name: install whois on Linux
+      become: yes
+      apt:
+        name: whois
+        state: latest
+      when: ansible_os_family == 'Debian'
+      tags: whois
+
     - name: install File managers
       become: yes
       apt:
