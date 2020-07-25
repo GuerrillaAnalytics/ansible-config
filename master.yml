@@ -243,8 +243,6 @@
     - role: ansible-git
       tags: git
 
-    - role: tommarshall.awscli
-      tags: awscli
 
     # - role: ansible-postgresql
     #   become: yes
