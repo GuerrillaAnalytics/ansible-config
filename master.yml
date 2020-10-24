@@ -35,16 +35,6 @@
       when: ansible_os_family == 'Debian'
       tags: snap
 
-    - name: Check PyEnv directory exists.
-      stat:
-        path: "{{ ansible_env.HOME }}/.pyenv"
-      register: pyenv_dir_exists
-      tags: pyenv
-
-    - debug:
-        msg: "{{ ansible_env.HOME }}/.pyenv exists "
-      when: pyenv_dir_exists.stat.exists and pyenv_dir_exists.stat.isdir
-      tags: pyenv
 
   gather_facts: yes
   #
@@ -124,6 +114,14 @@
         state: present
       when: ansible_os_family == 'Debian'
       tags: spotify
+
+    - name: Install WhatsApp on Linux
+      become: yes
+      snap:
+        name: whatsdesk
+        state: present
+      when: ansible_os_family == 'Debian'
+      tags: whatsapp
 
     - name: Install Atom if on Linux
       include_role:
@@ -244,6 +242,7 @@
     - role: ansible-git
       tags: git
 
+    - role: markosamuli.pyenv
 
     # - role: ansible-postgresql
     #   become: yes
@@ -256,24 +255,3 @@
     #     postgresql_hba_entries:
     #       - { type: all, database: all, user: all, auth_method: trust }
     #   tags: postgresql
-
-    # This role only executes on Darwin if the .pyenv folder
-    # does not exist. Otherwise it fails on Darwin.
-    - role: avanov.pyenv
-      vars:
-        pyenv_path: "{{ ansible_env.HOME }}/.pyenv"
-        #pyenv_owner: "{{ instance_owner }}"
-        pyenv_global: "2.7.16"
-        pyenv_update_git_install: no
-        pyenv_enable_autocompletion: yes
-        pyenv_python_versions:
-         - "3.7.2"
-         - "2.7.16"
-        pyenv_virtualenvs:
-         - venv_name: "latest_v3"
-           py_version: "3.7.2"
-
-         - venv_name: "latest_v2"
-           py_version: "2.7.16"
-      when: pyenv_dir_exists.stat.exists == False and ansible_os_family == 'Darwin'
-      tags: pyenv

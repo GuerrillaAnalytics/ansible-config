@@ -25,6 +25,9 @@
   src: https://github.com/cmprescott/ansible-role-chrome
   version: 0.2.4
 
+- name: markosamuli.pyenv
+  src: https://github.com/markosamuli/ansible-pyenv
+
 # Install and configure pycharm
 # https://github.com/henriklynggaard/ansible-role-pycharm
 # - name: ansible-role-pycharm
