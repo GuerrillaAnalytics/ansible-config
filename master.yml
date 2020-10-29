@@ -128,14 +128,6 @@
         name: ansible-role-atom
       when: ansible_os_family == 'Debian'
 
-    - name: Install Variety desktop wallpaper if on Linux
-      become: yes
-      apt:
-        name: variety
-        state: latest
-        update_cache: false
-      when: ansible_os_family == 'Debian'
-      tags: variety
 
     # - name: Install PyCharm on Linux
     #   include_role:
@@ -148,6 +140,12 @@
     #         # - 65772
     #   #when: ansible_os_family == 'Debian'
     #   tags: pycharm
+
+    - name: Install jq command line utility on Debian
+      become: yes
+      apt:
+	name: xclip
+	state: present
 
     - name: Add Pycharm bin dir to system-wide $PATH.
       become: yes
