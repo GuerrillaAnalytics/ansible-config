@@ -7,12 +7,12 @@
 - name: dirn.pyenv
   src: https://github.com/dirn/ansible-pyenv
 
-- name: ansible-role-homebrew
-  src: https://github.com/geerlingguy/ansible-role-homebrew
+#- name: ansible-role-homebrew
+#  src: https://github.com/geerlingguy/ansible-role-homebrew
 
 - name: ansible-role-atom
-  src: https://github.com/gantsign/ansible-role-atom
-  version: 2.0.1
+  src: https://github.com/gantsign/ansible-role-atom.git
+
 
 - name: ansible-role-atom-macos
   src: https://github.com/christopherdwhite/ansible-role-atom.git
@@ -33,10 +33,6 @@
 # - name: ansible-role-pycharm
 #   src: https://github.com/henriklynggaard/ansible-role-pycharm
   #version: v1.1
-
-- name: geerlingguy.postgresql
-  src: https://github.com/geerlingguy/ansible-role-postgresql
-  version: 1.4.5
 
 - name: ansible-role-docker
   src: https://github.com/geerlingguy/ansible-role-docker

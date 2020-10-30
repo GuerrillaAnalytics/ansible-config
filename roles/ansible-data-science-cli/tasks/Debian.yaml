@@ -42,11 +42,11 @@
     #- wc
     #- uniq
 
-# - name: Install jq command line utility on Debian
-#   become: yes
-#   apt:
-#     name: jq
-#     state: present
+- name: Install jq command line utility on Debian
+  become: yes
+  apt:
+    name: jq
+    state: present
 #
 # - name: Install "json2csv" command line tool for converting json into csv
 #   npm:

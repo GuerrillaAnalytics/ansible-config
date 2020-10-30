@@ -37,11 +37,6 @@
 
 
   gather_facts: yes
-  #
-  # vars:
-  #   pycharm_edition: community
-  #   pycharm_version: 2018.3.4
-    # pycharm_install_prefix: ansible_env.HOME
 
   connection: local
   #become: yes
@@ -104,8 +99,6 @@
       when: ansible_os_family == 'Debian'
       tags: aptfile
 
-    - name: Print ansible_os_family
-      debug: var=ansible_os_family
 
     - name: Install Spotify on Linux
       become: yes
@@ -123,11 +116,6 @@
       when: ansible_os_family == 'Debian'
       tags: whatsapp
 
-    - name: Install Atom if on Linux
-      include_role:
-        name: ansible-role-atom
-      when: ansible_os_family == 'Debian'
-
 
     # - name: Install PyCharm on Linux
     #   include_role:
@@ -141,18 +129,12 @@
     #   #when: ansible_os_family == 'Debian'
     #   tags: pycharm
 
-    - name: Install jq command line utility on Debian
+    - name: Install xclip command line utility on Debian
       become: yes
       apt:
-	name: xclip
-	state: present
+        name: xclip
+        state: present
 
-    - name: Add Pycharm bin dir to system-wide $PATH.
-      become: yes
-      copy:
-        dest: /etc/profile.d/custom-path.sh
-        content: 'PATH=$PATH:{{ ansible_env.HOME }}/bin/pycharm-community-2019.2.1/bin'
-      tags: pycharm-path
 
     - name: Install OpenJDK on MacOS
       become: yes
@@ -178,60 +160,9 @@
       when: ansible_os_family == 'Debian'
       tags: whois
 
-    - name: install File managers
-      become: yes
-      apt:
-        name: dolphin
-        state: latest
-      when: ansible_os_family == 'Debian'
-      tags: file_manager
-    # - name: Install awscli
-    #   pip:
-    #     name: awscli
-    #     #version: "{{ awscli_version }}"
-    #     extra_args: --user
-    #   tags: awscli
 
-    - name: Ensure ~/.aws directory exists
-      file: >
-        path="{{ ansible_env.HOME }}/.aws"
-        state=directory
-      tags: awscli
 
-    - name: Install AWS sam cli tap on Mac
-      become: yes
-      homebrew_cask:
-        name: aws/tap
-        state: present
-      when: ansible_os_family == 'Darwin'
-      tags: awscli
 
-    - name: Install AWS sam cli
-      homebrew:
-        name: aws-sam-cli
-        state: present
-      tags: awscli
-
-    # - name: Install ~/.aws/credentials
-    #   copy:
-    #     src: credentials
-    #     dest: "{{ home_directory }}/.aws/credentials"
-    #     mode: 0644
-
-    # - name: Creates directory for shared partition
-    #   file:
-    #     path: "{{ ansible_env.HOME }}/data"
-    #     state: directory
-    #   tags: shared_partition
-    #
-    # - name: Mount shared partition
-    #   become: yes
-    #   mount:
-    #     path: "{{ ansible_env.HOME }}/data"
-    #     src: /dev/sda6
-    #     fstype: ntfs
-    #     state: mounted
-    #   tags: shared_partition
 
   roles:
     - role: ansible-data-science-cli
@@ -242,14 +173,5 @@
 
     - role: markosamuli.pyenv
 
-    # - role: ansible-postgresql
-    #   become: yes
-    #   vars:
-    #     postgresql_users:
-    #       - name: enda
-    #       - name: postgres
-    #     postgresql_databases:
-    #       - name: example_db
-    #     postgresql_hba_entries:
-    #       - { type: all, database: all, user: all, auth_method: trust }
-    #   tags: postgresql
+    - role: ansible-role-atom
+      tags: atom
