@@ -35,6 +35,27 @@
       when: ansible_os_family == 'Debian'
       tags: snap
 
+    - name: Add a group 'docker' for use by docker
+      become: yes
+      group:
+        name: docker
+        state: present
+      when: ansible_os_family == 'Debian'
+      tags: docker
+
+    - name: add current user to docker group
+      user:
+        name: "{{ ansible_env.USER }}"
+        groups: docker
+        append: yes
+
+    - name: Change ownership for docker without sudo
+      become: yes
+      file:
+        path: /var/run/docker.sock
+        owner: "root"
+        group: "docker"
+      tags: docker
 
   gather_facts: yes
 
@@ -135,6 +156,11 @@
         name: xclip
         state: present
 
+    - name: Install members command line utility on Debian
+      become: yes
+      apt:
+        name: members
+        state: present
 
     - name: Install OpenJDK on MacOS
       become: yes
@@ -175,3 +201,11 @@
 
     - role: ansible-role-atom
       tags: atom
+
+    - role: ansible-docker
+      vars:
+        docker__edition: "ce"
+        docker__state: "latest"
+        docker__users: ["{{ ansible_env.USER }}"]
+      become: yes
+      tags: docker
