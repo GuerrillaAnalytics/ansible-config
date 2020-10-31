@@ -186,9 +186,25 @@
       when: ansible_os_family == 'Debian'
       tags: whois
 
+    - name: install libpq-dev on Linux
+      become: yes
+      apt:
+        name: libpq-dev
+        state: latest
 
+    - name: install python3-dev
+      become: yes
+      apt:
+        name: python3-dev
+        state: latest
+      tags: postgres
 
-
+    - name: install postgresql-client
+      become: yes
+      apt:
+        name: postgresql-client
+        state: latest
+      tags: postgres
 
   roles:
     - role: ansible-data-science-cli
