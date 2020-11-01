@@ -51,6 +51,13 @@
   apt:
     name: jq
     state: present
+
+- name: Install csvkit for CSV file manipulation
+  become: yes
+  apt:
+    name: csvkit
+    state: present
+  tags: csvkit
 #
 - name: Install "json2csv" command line tool for converting json into csv
   become: yes
