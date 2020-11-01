@@ -1,18 +1,13 @@
 # Install a role at a specific tag from GitHub
 # https://stackoverflow.com/questions/25230376/how-to-automatically-install-ansible-galaxy-roles
 
-- name: avanov.pyenv
-  src: https://github.com/avanov/ansible-galaxy-pyenv
-
-- name: dirn.pyenv
-  src: https://github.com/dirn/ansible-pyenv
 
 #- name: ansible-role-homebrew
 #  src: https://github.com/geerlingguy/ansible-role-homebrew
 
 - name: ansible-role-atom
   src: https://github.com/gantsign/ansible-role-atom.git
-
+  version: 2.1.0
 
 - name: ansible-role-atom-macos
   src: https://github.com/christopherdwhite/ansible-role-atom.git
@@ -27,6 +22,7 @@
 
 - name: markosamuli.pyenv
   src: https://github.com/markosamuli/ansible-pyenv
+  version: v4.0.2
 
 # Install and configure pycharm
 # https://github.com/henriklynggaard/ansible-role-pycharm
@@ -35,8 +31,10 @@
   #version: v1.1
 - name: ansible-docker
   src: https://github.com/nickjj/ansible-docker
+  version: v2.0.0
 
   ########################
   # Languages
 - name: diodonfrost.java
   src: https://github.com/diodonfrost/ansible-role-java
+  version: 1.12.0

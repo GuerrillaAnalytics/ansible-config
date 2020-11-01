@@ -156,7 +156,7 @@
         name: xclip
         state: present
       tags: cli
-      
+
     - name: Install members command line utility on Debian
       become: yes
       apt:
@@ -239,3 +239,11 @@
         docker__users: ["{{ ansible_env.USER }}"]
       become: yes
       tags: docker
+
+    - role: diodonfrost.java
+      become: yes
+      vars:
+        java_version: latest
+        openjre_install: true
+        openjdk_install: false
+      tags: java
