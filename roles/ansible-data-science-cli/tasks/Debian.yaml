@@ -23,10 +23,11 @@
     - unattended-upgrades
     - policykit-1
     - ntp
-    - wget
     - curl
+    - gawk
     - vim
     - ack-grep
+    - grep
     - git
     - unzip
     - htop
@@ -34,9 +35,12 @@
     - tree
     - mc
     - bash-completion
+    - sed
     - htop
     - rename
     - net-tools
+    - watch
+    - wget
     #- cut
     #- sort
     #- wc

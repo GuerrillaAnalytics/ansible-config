@@ -1,26 +1,33 @@
-This project is where I maintain a reproducible setup of my home and work machines using [Ansible](https://www.ansible.com/).
+This project is a simple reproducible setup of my home machines using [Ansible](https://www.ansible.com/).
 
-To run the configuration, set up your system as detailed below and then type the following. 'password' is your machine's admin password. 
+To run the configuration, set up your system as detailed below and then type the following. ```password``` is your machine's admin password.
 ```
 ansible-playbook -i ./hosts  master.yml --extra-vars "ansible_become_pass=<password>"
 ```
 # Motivation
-Reproducibility is key to doing traditional science. Results that cannot be reproduced are useless. Data Science is no different. 
+Reproducibility is key to doing traditional science. Reproducibility is also key to doing _Data Science_ well in a way that you can explain your results, iterate quickly and not waste time configuring the complex mix of tools used in Data Science work.
+
+See more about reproducible data science at [Guerrilla Analytics](https://guerrilla-analytics.net).
 
 # Set up your system
-* Install virtualenv as described [here](https://virtualenv.pypa.io/en/latest/installation/) 
-* Create and activate a python virtual environment for this project's installations
+* Install virtualenv as described [here](https://virtualenv.pypa.io/en/latest/installation/)
+* Create and activate a Python virtual environment for this project's installations
 ```
 virtualenv --python=python3 .venv
 ```
 
-* Install project Python requirements inside your virtualenv
+* Install this project's Python requirements inside your virtualenv
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
-* Install ansible roles using the requirements file.
+* Install ansible roles using the ansible requirements file.
 ```
 ansible-galaxy install -r requirements.yml
 ```
 
+# Supported tools
+* [Docker](https://hub.docker.com/)
+* Terminal configuration with useful information and colour coding
+* [apt-file](http://manpages.ubuntu.com/manpages/precise/man1/apt-file.1.html)
+* [xclip](http://manpages.ubuntu.com/manpages/xenial/man1/xclip.1.html) often useful in scripting

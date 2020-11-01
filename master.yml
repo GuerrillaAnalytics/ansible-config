@@ -155,7 +155,8 @@
       apt:
         name: xclip
         state: present
-
+      tags: cli
+      
     - name: Install members command line utility on Debian
       become: yes
       apt:
