@@ -186,17 +186,18 @@
       when: ansible_os_family == 'Debian'
       tags: whois
 
-    - name: install libpq-dev on Linux
-      become: yes
-      apt:
-        name: libpq-dev
-        state: latest
 
-    - name: install python3-dev
+    - name: Installing postgres dependencies
       become: yes
-      apt:
-        name: python3-dev
-        state: latest
+      apt: pkg={{ item }}
+      with_items:
+        - python3-dev
+        - python-dev
+        - libpq-dev
+        - build-essential
+        - libssl-dev
+        - libffi-dev
+        - libgmp3-dev
       tags: postgres
 
     - name: install postgresql-client
@@ -215,7 +216,16 @@
 
     - role: markosamuli.pyenv
 
+    # Install packages as current user
     - role: ansible-role-atom
+      become: yes
+      users:
+        - username: "{{ ansible_env.USER }}"
+          atom_packages:
+          - markdown-preview-plus
+          - linter
+          - atom-beautify
+          - git-plus
       tags: atom
 
     - role: ansible-docker
