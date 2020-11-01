@@ -215,6 +215,9 @@
       tags: git
 
     - role: markosamuli.pyenv
+      vars:
+        pyenv_init_shell: false
+      tags: pyenv
 
     # Install packages as current user
     - role: ansible-role-atom
