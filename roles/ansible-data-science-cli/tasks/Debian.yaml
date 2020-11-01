@@ -52,6 +52,11 @@
     name: jq
     state: present
 
+- name: Install subsample python package
+  pip:
+    name: subsample
+  tags: subsample
+
 - name: Install csvkit for CSV file manipulation
   become: yes
   apt:
