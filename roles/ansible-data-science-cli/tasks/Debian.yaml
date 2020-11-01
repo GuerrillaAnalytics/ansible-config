@@ -66,6 +66,13 @@
     global: yes
   tags: json2csv
 
+- name: Install "xml2json" command line tool for XML conversion
+  become: yes
+  npm:
+    name: xml2json-command
+    global: yes
+  tags: xml2json
+
 - name: Update apt cache
   become: yes
   apt:
