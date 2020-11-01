@@ -52,10 +52,12 @@
     name: jq
     state: present
 #
-# - name: Install "json2csv" command line tool for converting json into csv
-#   npm:
-#     name: json2csv
-#     global: yes
+- name: Install "json2csv" command line tool for converting json into csv
+  become: yes
+  npm:
+    name: json2csv
+    global: yes
+  tags: json2csv
 
 - name: Update apt cache
   become: yes
