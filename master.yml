@@ -7,6 +7,17 @@
   # switch off gather_facts temporarily as that also fails without
   # Python2 present
   gather_facts: no
+
+  vars:
+    # ansible vault encrypt_string of media centre IP address
+    media_centre_ip_address: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          64373130343663396233633866393166313030393430353537333262393137653061623262343663
+          3938323763356339626165356332643738323065353138640a653036386265633336386334303334
+          37313832663835666161326432643265356633303431623538303036323338636533653331623861
+          6130393333356262310a346535613438633662376235313535333339343931343038663961313535
+          6636
+
   pre_tasks:
     - name: 'install python2'
       become: yes
@@ -63,150 +74,189 @@
   #become: yes
 
   tasks:
-    - name: set up bash terminal colours
-      lineinfile:
-        create: yes
-        # mode: 0600
-        dest: ~/.bash_profile
-        # owner: root
-        regexp: '^PS1='
-        line: PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
-        state: present
-      tags: bash
-    - name: set up ls colours in terminal
-      lineinfile:
-        create: yes
-        # mode: 0600
-        dest: ~/.bash_profile
-        # owner: root
-        regexp: '^LSCOLORS='
-        #line: LSCOLORS=GxFxCxDxBxegedabagaced
-        line: LSCOLORS=di=1;32:ln=0:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=31:sg=31:tw=1;30;42:ow=1;30;43
-        state: present
-      tags: bash
+
+  - name: Install vnc viewer
+    become: yes
+    apt:
+      update_cache: yes
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - realvnc-vnc-viewer
+    tags:
+      - vnc
+
+  - name: nfs tool for mounting drives
+    become: yes
+    apt:
+      name: nfs-common
+      state: latest
+    tags: nfs
+
+  - name: Create directory for mounting NAS
+    become: yes
+    file:
+      path: /mnt/media-share
+      state: directory
+    tags: media
+
+  # Mount the media centre NAS drive so it can be accessed
+  # by Kodi
+  - name: Mount media share NAS
+    become: yes
+    ansible.posix.mount:
+      path: /mnt/media-share
+      src: "{{ media_centre_ip_address }}:/nfs/media-share"
+      fstype: nfs
+      backup: yes
+      state: mounted
+    tags: media
 
 
-    - name: Upgrade apt cache on Linux
-      become: yes
-      apt:
-        upgrade: yes
-        cache_valid_time: 604800 #update cache if been more than one day in secs
-      when: ansible_os_family == 'Debian'
-      tags: upgrade
-
-    - name: Upgrade homebrew packages on Mac
-      homebrew:
-        update_homebrew: yes
-        upgrade_all: yes
-      when: ansible_os_family == 'Darwin'
-      tags: upgrade
-
-    - name: Install DigiKam photo management
-      become: yes
-      apt:
-        name: digikam
-        state: latest
-        update_cache: true
-      when: ansible_os_family == 'Debian'
-      tags: digikam
-
-    # Search for apt files online and on machine
-    - name: Install apt-file tool if on Linux
-      become: yes
-      apt:
-        name: apt-file
-        state: latest
-        update_cache: true
-      when: ansible_os_family == 'Debian'
-      tags: aptfile
+  - name: set up bash terminal colours
+    lineinfile:
+      create: yes
+      # mode: 0600
+      dest: ~/.bash_profile
+      # owner: root
+      regexp: '^PS1='
+      line: PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
+      state: present
+    tags: bash
+  - name: set up ls colours in terminal
+    lineinfile:
+      create: yes
+      # mode: 0600
+      dest: ~/.bash_profile
+      # owner: root
+      regexp: '^LSCOLORS='
+      #line: LSCOLORS=GxFxCxDxBxegedabagaced
+      line: LSCOLORS=di=1;32:ln=0:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=31:sg=31:tw=1;30;42:ow=1;30;43
+      state: present
+    tags: bash
 
 
-    - name: Install Spotify on Linux
-      become: yes
-      snap:
-        name: spotify
-        state: present
-      when: ansible_os_family == 'Debian'
-      tags: spotify
+  - name: Upgrade apt cache on Linux
+    become: yes
+    apt:
+      upgrade: yes
+      cache_valid_time: 604800 #update cache if been more than one day in secs
+    when: ansible_os_family == 'Debian'
+    tags: upgrade
 
-    - name: Install WhatsApp on Linux
-      become: yes
-      snap:
-        name: whatsdesk
-        state: present
-      when: ansible_os_family == 'Debian'
-      tags: whatsapp
+  - name: Upgrade homebrew packages on Mac
+    homebrew:
+      update_homebrew: yes
+      upgrade_all: yes
+    when: ansible_os_family == 'Darwin'
+    tags: upgrade
 
+  - name: Install DigiKam photo management
+    become: yes
+    apt:
+      name: digikam
+      state: latest
+      update_cache: true
+    when: ansible_os_family == 'Debian'
+    tags: digikam
 
-    # - name: Install PyCharm on Linux
-    #   include_role:
-    #     name: ansible-role-pycharm
-    #   vars:
-    #     pycharm_version: 2019.3.1
-    #     pycharm_edition: community
-    #     # pycharm_plugins:
-    #         # bash support 1.6.5.171
-    #         # - 65772
-    #   #when: ansible_os_family == 'Debian'
-    #   tags: pycharm
-
-    - name: Install xclip command line utility on Debian
-      become: yes
-      apt:
-        name: xclip
-        state: present
-      tags: cli
-
-    - name: Install members command line utility on Debian
-      become: yes
-      apt:
-        name: members
-        state: present
-
-    - name: Install OpenJDK on MacOS
-      become: yes
-      homebrew_cask:
-        name: adoptopenjdk8
-        state: present
-      when: ansible_os_family == 'Darwin'
-      tags: java
-
-    - name: install rclone on Linux
-      become: yes
-      apt:
-        name: rclone
-        state: latest
-      when: ansible_os_family == 'Debian'
-      tags: rclone
-
-    - name: install whois on Linux
-      become: yes
-      apt:
-        name: whois
-        state: latest
-      when: ansible_os_family == 'Debian'
-      tags: whois
+  # Search for apt files online and on machine
+  - name: Install apt-file tool if on Linux
+    become: yes
+    apt:
+      name: apt-file
+      state: latest
+      update_cache: true
+    when: ansible_os_family == 'Debian'
+    tags: aptfile
 
 
-    - name: Installing postgres dependencies
-      become: yes
-      apt: pkg={{ item }}
-      with_items:
-        - python3-dev
-        - python-dev
-        - libpq-dev
-        - build-essential
-        - libssl-dev
-        - libffi-dev
-        - libgmp3-dev
-      tags: postgres
+  - name: Install Spotify on Linux
+    become: yes
+    snap:
+      name: spotify
+      state: present
+    when: ansible_os_family == 'Debian'
+    tags: spotify
 
-    - name: install postgresql-client
-      become: yes
-      apt:
-        name: postgresql-client
-        state: latest
-      tags: postgres
+  - name: Install WhatsApp on Linux
+    become: yes
+    snap:
+      name: whatsdesk
+      state: present
+    when: ansible_os_family == 'Debian'
+    tags: whatsapp
+
+
+  # - name: Install PyCharm on Linux
+  #   include_role:
+  #     name: ansible-role-pycharm
+  #   vars:
+  #     pycharm_version: 2019.3.1
+  #     pycharm_edition: community
+  #     # pycharm_plugins:
+  #         # bash support 1.6.5.171
+  #         # - 65772
+  #   #when: ansible_os_family == 'Debian'
+  #   tags: pycharm
+
+  - name: Install xclip command line utility on Debian
+    become: yes
+    apt:
+      name: xclip
+      state: present
+    tags: cli
+
+  - name: Install members command line utility on Debian
+    become: yes
+    apt:
+      name: members
+      state: present
+
+  - name: Install OpenJDK on MacOS
+    become: yes
+    homebrew_cask:
+      name: adoptopenjdk8
+      state: present
+    when: ansible_os_family == 'Darwin'
+    tags: java
+
+  - name: install rclone on Linux
+    become: yes
+    apt:
+      name: rclone
+      state: latest
+    when: ansible_os_family == 'Debian'
+    tags: rclone
+
+  - name: install whois on Linux
+    become: yes
+    apt:
+      name: whois
+      state: latest
+    when: ansible_os_family == 'Debian'
+    tags: whois
+
+
+  - name: Installing postgres dependencies
+    become: yes
+    apt: pkg={{ item }}
+    with_items:
+      - python3-dev
+      - python-dev
+      - libpq-dev
+      - build-essential
+      - libssl-dev
+      - libffi-dev
+      - libgmp3-dev
+    tags: postgres
+
+  - name: install postgresql-client
+    become: yes
+    apt:
+      name: postgresql-client
+      state: latest
+    tags: postgres
 
   roles:
     - role: ansible-data-science-cli

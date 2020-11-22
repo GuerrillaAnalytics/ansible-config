@@ -1,8 +1,8 @@
 This project is a simple reproducible setup of my home machines using [Ansible](https://www.ansible.com/).
 
-To run the configuration, set up your system as detailed below and then type the following. ```password``` is your machine's admin password.
+To run the configuration, set up your system as detailed below and then type the following.
 ```
-ansible-playbook -i ./hosts  master.yml --extra-vars "ansible_become_pass=<password>"
+
 ```
 # Motivation
 Reproducibility is key to doing traditional science. Reproducibility is also key to doing _Data Science_ well in a way that you can explain your results, iterate quickly and not waste time configuring the complex mix of tools used in Data Science work.
@@ -24,6 +24,18 @@ pip3 install -r requirements.txt
 * Install ansible roles using the ansible requirements file.
 ```
 ansible-galaxy install -r requirements.yml
+```
+
+* add this line code to ```inventory.ini```.
+
+```
+localhost ansible_become_pass=ZZZZ
+```
+where ZZZZ is the sudo password for your local machine
+
+* encrypt your new inventory.ini file
+```
+ansible-vault encrypt inventory.ini
 ```
 
 # Supported tools
