@@ -237,6 +237,21 @@
     when: ansible_os_family == 'Debian'
     tags: whois
 
+  - name: set up unifi controller
+    block:
+      - name: install unifi wifi controller on Linux
+        apt:
+          name: unifi
+          state: present
+
+      - name: Start unfi service
+        service:
+          name: unifi
+          state: started
+    become: yes
+    when: ansible_os_family == 'Debian'
+    ignore_errors: no
+    tags: unifi
 
   - name: Installing postgres dependencies
     become: yes
@@ -297,3 +312,13 @@
         openjre_install: true
         openjdk_install: false
       tags: java
+
+    # unifi controller software requires Java 8
+    # or it will not work
+    - role: diodonfrost.java
+      become: yes
+      vars:
+        java_version: 8
+        openjre_install: true
+        openjdk_install: false
+      tags: unifi
