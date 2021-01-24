@@ -23,22 +23,16 @@ See more about reproducible data science at [Guerrilla Analytics](https://guerri
 -   Install virtualenv as described [here](https://virtualenv.pypa.io/en/latest/installation/)
 -   Create and activate a Python virtual environment for this project's installations
 
-    `
-    virtualenv --python=python3 .venv
-    source .venv/bin/activate
-    `
+    `virtualenv --python=python3 .venv
+    source .venv/bin/activate`
 
 -   Install this project's Python requirements inside your virtualenv
 
-    `
-    pip3 install -r requirements.txt
-    `
+    `pip3 install -r requirements.txt`
 
 -   Install ansible roles using the ansible requirements file.
 
-    `
-    ansible-galaxy install -r requirements.yml
-    `
+    `ansible-galaxy install -r requirements.yml`
 
 -   add this line code to `inventory.ini`.
 

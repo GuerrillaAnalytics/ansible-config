@@ -187,6 +187,13 @@
     when: ansible_os_family == 'Debian'
     tags: whatsapp
 
+  - name: Install Signal on Linux
+    become: yes
+    snap:
+      name: signal-desktop
+      state: present
+    when: ansible_os_family == 'Debian'
+    tags: signal
 
   # - name: Install PyCharm on Linux
   #   include_role:
