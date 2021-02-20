@@ -93,20 +93,32 @@
       state: latest
     tags: nfs
 
-  - name: Create directory for mounting NAS
+  - name: Create directories for mounting NAS
     become: yes
     file:
-      path: /mnt/media-share
+      path: "{{item}}"
       state: directory
+    with_items:
+      - ["/mnt/media-share","/mnt/cloud"]
     tags: media
 
-  # Mount the media centre NAS drive so it can be accessed
-  # by Kodi
+
+  # Mount the media centre NAS drive
   - name: Mount media share NAS
     become: yes
     ansible.posix.mount:
       path: /mnt/media-share
       src: "{{ media_centre_ip_address }}:/nfs/media-share"
+      fstype: nfs
+      backup: yes
+      state: mounted
+    tags: media
+
+  - name: Mount private share NAS
+    become: yes
+    ansible.posix.mount:
+      path: /mnt/cloud
+      src: "{{ media_centre_ip_address }}:/nfs/cloud"
       fstype: nfs
       backup: yes
       state: mounted
