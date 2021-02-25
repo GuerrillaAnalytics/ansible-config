@@ -38,3 +38,6 @@
 - name: diodonfrost.java
   src: https://github.com/diodonfrost/ansible-role-java
   version: 1.12.0
+
+- name: hnakamur.atom-packages
+  src: https://github.com/hnakamur/ansible-role-atom-packages

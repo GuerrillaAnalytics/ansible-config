@@ -68,6 +68,14 @@
         group: "docker"
       tags: docker
 
+    - name: Install atom
+      become: yes
+      apt:
+        name: atom
+        state: latest
+      when: ansible_os_family == 'Debian'
+      tags: atom
+      
   gather_facts: yes
 
   connection: local
@@ -171,6 +179,15 @@
       update_cache: true
     when: ansible_os_family == 'Debian'
     tags: digikam
+
+
+  - name: Install spelling package (for Atom)
+    become: yes
+    apt:
+      name: hunspell-en-gb
+      state: latest
+    when: ansible_os_family == 'Debian'
+    tags: atom
 
   # Search for apt files online and on machine
   - name: Install apt-file tool if on Linux
@@ -304,16 +321,17 @@
         pyenv_init_shell: false
       tags: pyenv
 
-    # Install packages as current user
-    - role: ansible-role-atom
-      become: yes
-      users:
-        - username: "{{ ansible_env.USER }}"
-          atom_packages:
+
+    - role: hnakamur.atom-packages
+      vars:
+        atom_packages_packages:
           - markdown-preview-plus
           - linter
           - atom-beautify
-          - git-plus
+          - language-markdown
+          - markdown-writer
+          - markdown-fold
+      become: yes
       tags: atom
 
     - role: ansible-docker
