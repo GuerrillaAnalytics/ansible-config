@@ -112,8 +112,8 @@
       path: "{{item}}"
       state: directory
     with_items:
-      - ["/mnt/media-share","/mnt/cloud"]
-    tags: media
+      - ["/mnt/media-share","/mnt/cloud", "/mnt/local/data"]
+    tags: mount
 
 
   # Mount the media centre NAS drive
@@ -125,7 +125,7 @@
       fstype: nfs
       backup: yes
       state: mounted
-    tags: media
+    tags: mount
 
   - name: Mount private share NAS
     become: yes
@@ -135,9 +135,9 @@
       fstype: nfs
       backup: yes
       state: mounted
-    tags: media
+    tags: mount
 
-
+    
   - name: set up bash terminal colours
     lineinfile:
       create: yes
