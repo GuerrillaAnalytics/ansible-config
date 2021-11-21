@@ -41,3 +41,6 @@
 
 - name: hnakamur.atom-packages
   src: https://github.com/hnakamur/ansible-role-atom-packages
+
+- name: igor_mukhin.bash_aliases
+  src: https://github.com/carlba/ansible-role-bash_aliases

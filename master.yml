@@ -18,6 +18,11 @@
           6130393333356262310a346535613438633662376235313535333339343931343038663961313535
           6636
 
+    # define aliases set by role igor_mukhin.bash_aliases
+    bash_aliases:
+      - { alias: 'll', command: 'ls -alF' }
+      - { alias: 'l', command: 'ls -CF' }
+
   pre_tasks:
     - name: 'install python2'
       become: yes
@@ -75,7 +80,7 @@
         state: latest
       when: ansible_os_family == 'Debian'
       tags: atom
-      
+
   gather_facts: yes
 
   connection: local
@@ -359,3 +364,6 @@
         openjre_install: true
         openjdk_install: false
       tags: unifi
+
+    - role: igor_mukhin.bash_aliases
+      sudo: false
