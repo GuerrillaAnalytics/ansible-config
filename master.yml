@@ -22,6 +22,8 @@
     bash_aliases:
       - { alias: 'll', command: 'ls -alF' }
       - { alias: 'l', command: 'ls -CF' }
+      # alias for mounting media drive
+      - { alias: 'mount-gdrive', command: 'sudo mount -t nfs {{ media_centre_ip_address }}:/nfs/wd_my_cloud /mnt/wd_my_cloud/'}
 
   pre_tasks:
     - name: 'install python2'
@@ -111,33 +113,38 @@
     file:
       path: "{{item}}"
       state: directory
+      mode: u+rwx
     with_items:
-      - ["/mnt/media-share","/mnt/cloud", "/mnt/local/data"]
+      - ["/mnt/media-share", "/mnt/wd_my_cloud"]
     tags: mount
 
 
   # Mount the media centre NAS drive
   - name: Mount media share NAS
     become: yes
+    become_method: sudo
     ansible.posix.mount:
       path: /mnt/media-share
       src: "{{ media_centre_ip_address }}:/nfs/media-share"
       fstype: nfs
       backup: yes
       state: mounted
+      opts: rw
     tags: mount
 
   - name: Mount private share NAS
     become: yes
+    become_method: sudo
     ansible.posix.mount:
-      path: /mnt/cloud
-      src: "{{ media_centre_ip_address }}:/nfs/cloud"
+      path: /mnt/cl
+      src: "{{ media_centre_ip_address }}:/nfs/wd_my_cloud"
       fstype: nfs
       backup: yes
       state: mounted
+      opts: rw
     tags: mount
 
-    
+
   - name: set up bash terminal colours
     lineinfile:
       create: yes
@@ -367,3 +374,4 @@
 
     - role: igor_mukhin.bash_aliases
       sudo: false
+      tags: aliases

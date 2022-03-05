@@ -15,8 +15,9 @@ See more about reproducible data science at [Guerrilla Analytics](https://guerri
 # To launch
 
 -   set up your system as detailed below
--   activate the virtual environment
+-   activate the virtual environment with `source .venv/bin/activate`
 -   execute `ansible-playbook master.yml --ask-vault-pass`
+-   execute an individual tag with `ansible-playbook master.yml --ask-vault-pass -t <tag name>`
 
 # Set up your system
 
@@ -51,3 +52,8 @@ where ZZZZ is the sudo password for your local machine
 -   Terminal configuration with useful information and colour coding
 -   [apt-file](http://manpages.ubuntu.com/manpages/precise/man1/apt-file.1.html)
 -   [xclip](http://manpages.ubuntu.com/manpages/xenial/man1/xclip.1.html) often useful in scripting
+
+# Maintenance
+
+## Adding new encrypted text
+See the Ansible documentation [here](https://docs.ansible.com/ansible/latest/user_guide/vault.html#creating-encrypted-variables).
